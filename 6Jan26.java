@@ -88,4 +88,49 @@ class Solution {
         return result;
     }
 
+    // public int subsetXORSum(int[] nums) {
+
+    // }
+
+    // public int[] helper(int nums[], int i){
+    // int x = helper(nums, i+1);
+    // return x+nums[i];
+    // }
+
+    public String defangIPaddr(String address) {
+        address = address.replaceAll("[.]", "[.]");
+        return address;
+    }
+
+    public int numIdenticalPairs(int[] nums) {
+        HashMap<Integer, Integer> freqMap = new HashMap<>();
+        int goodPairs = 0;
+        for (int num : nums) {
+            goodPairs += freqMap.get(num) != null ? freqMap.get(num) : 0;
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+        return goodPairs;
+    }
+
+    public int[] transformArray(int[] nums) {
+        int n = nums.length;
+        int[] result = new int[n];
+        int evenCount = 0;
+        int oddCount = 0;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] % 2 == 0) {
+                evenCount++;
+
+            } else {
+                oddCount++;
+            }
+        }
+
+        for (int i = evenCount; i < n; i++) {
+            result[i] = 1;
+        }
+
+        return result;
+    }
+
 }
