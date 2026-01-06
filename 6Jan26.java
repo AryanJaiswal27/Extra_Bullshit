@@ -88,15 +88,6 @@ class Solution {
         return result;
     }
 
-    // public int subsetXORSum(int[] nums) {
-
-    // }
-
-    // public int[] helper(int nums[], int i){
-    // int x = helper(nums, i+1);
-    // return x+nums[i];
-    // }
-
     public String defangIPaddr(String address) {
         address = address.replaceAll("[.]", "[.]");
         return address;
@@ -315,6 +306,148 @@ class Solution {
             }
         }
         return result;
+    }
+
+    public int sum(int num1, int num2) {
+        return num1 + num2;
+    }
+
+    public int[] leftRightDifference(int[] nums) {
+
+        int n = nums.length;
+        int[] leftSum = new int[n];
+        int[] rightSum = new int[n];
+        int[] ans = new int[n];
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            leftSum[i] = sum;
+            sum += nums[i];
+        }
+        int sum2 = 0;
+        for (int i = n - 1; i >= 0; i--) {
+
+            rightSum[i] = sum2;
+            ans[i] = Math.abs(leftSum[i] - rightSum[i]);
+            sum2 += nums[i];
+        }
+
+        return ans;
+
+    }
+
+    public int[][] largestLocal(int[][] grid) {
+        int n = grid.length;
+        int[][] result = new int[n - 2][n - 2];
+
+        int index = 0;
+        for (int i = 1; i < n - 1; i++) {
+            for (int j = 1; j < n - 1; j++) {
+                int row = index / (n - 2);
+                int col = index % (n - 2);
+                int maxVal = Integer.MIN_VALUE;
+                maxVal = Math.max(maxVal, grid[i - 1][j - 1]);
+                maxVal = Math.max(maxVal, grid[i - 1][j]);
+                maxVal = Math.max(maxVal, grid[i - 1][j + 1]);
+                maxVal = Math.max(maxVal, grid[i][j - 1]);
+                maxVal = Math.max(maxVal, grid[i][j]);
+                maxVal = Math.max(maxVal, grid[i][j + 1]);
+                maxVal = Math.max(maxVal, grid[i + 1][j - 1]);
+                maxVal = Math.max(maxVal, grid[i + 1][j]);
+                maxVal = Math.max(maxVal, grid[i + 1][j + 1]);
+                result[row][col] = maxVal;
+                index++;
+            }
+        }
+
+        return result;
+
+    }
+
+    public int minBitFlips(int start, int goal) {
+        int count = 0;
+        while (start != 0 || goal != 0) {
+            if ((start & 1) != (goal & 1)) {
+                start = start >> 1;
+                goal = goal >> 1;
+                count++;
+            } else {
+                start = start >> 1;
+                goal = goal >> 1;
+            }
+
+        }
+
+        return count;
+
+    }
+
+    public int countPairs(List<Integer> nums, int target) {
+        int n = nums.size();
+        int pairCount = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (nums.get(i) + nums.get(j) < target) {
+                    pairCount++;
+                }
+            }
+        }
+        return pairCount;
+
+    }
+
+    public int findPermutationDifference(String s, String t) {
+        HashMap<Character, Integer> freqMapS = new HashMap<>();
+
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            freqMapS.put(s.charAt(i), i);
+        }
+
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            if (freqMapS.get(t.charAt(i)) != i) {
+                sum += Math.abs(freqMapS.get(t.charAt(i)) - i);
+            }
+        }
+
+        return sum;
+
+    }
+
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        if (root == null) {
+            return 0;
+        }
+        if (root.val < low) {
+            return rangeSumBST(root.right, low, high);
+        }
+        if (root.val > high) {
+            return rangeSumBST(root.left, low, high);
+        }
+
+        return root.val + rangeSumBST(root.left, low, high) + rangeSumBST(root.right, low, high);
+
+    }
+
+    public int[] decode(int[] encoded, int first) {
+        int n = encoded.length;
+        int[] result = new int[n + 1];
+        result[0] = first;
+        for (int i = 0; i < n; i++) {
+            result[i + 1] = result[i] ^ encoded[i];
+        }
+        return result;
+    }
+
+    public int minMovesToSeat(int[] seats, int[] students) {
+        Arrays.sort(seats);
+        Arrays.sort(students);
+        int n = seats.length;
+        int moves = 0;
+        for (int i = 0; i < n; i++) {
+            moves += Math.abs(seats[i] - students[i]);
+        }
+        return moves;
     }
 
 }
