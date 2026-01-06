@@ -243,4 +243,78 @@ class Solution {
         return result;
     }
 
+    public int countConsistentStrings(String allowed, String[] words) {
+        HashSet<Character> allowedSet = new HashSet<>();
+        for (int i = 0; i < allowed.length(); i++) {
+            allowedSet.add(allowed.charAt(i));
+        }
+        int count = 0;
+        for (String word : words) {
+            boolean isConsistent = true;
+            for (int i = 0; i < word.length(); i++) {
+                if (!allowedSet.contains(word.charAt(i))) {
+                    isConsistent = false;
+                    break;
+                }
+            }
+            if (isConsistent) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int reverseDegree(String s) {
+        int sum = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int x = 26 - (s.charAt(i) - 'a');
+            x = x * (i + 1);
+            sum += x;
+        }
+        return sum;
+    }
+
+    public int smallestEvenMultiple(int n) {
+        if (n % 2 == 0) {
+            return n;
+        } else {
+            return 2 * n;
+        }
+    }
+
+    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        List<Boolean> resList = new ArrayList<>();
+        int maxCandies = 0;
+        for (int i = 0; i < candies.length; i++) {
+            maxCandies = Math.max(maxCandies, candies[i]);
+        }
+        for (int i = 0; i < candies.length; i++) {
+            if (candies[i] + extraCandies >= maxCandies) {
+                resList.add(true);
+            } else {
+                resList.add(false);
+            }
+        }
+
+        return resList;
+
+    }
+
+    public String interpret(String command) {
+        String result = "";
+        while (command.length() > 0) {
+            if (command.startsWith("G")) {
+                result += "G";
+                command = command.substring(1);
+            } else if (command.startsWith("()")) {
+                result += "o";
+                command = command.substring(2);
+            } else if (command.startsWith("(al)")) {
+                result += "al";
+                command = command.substring(4);
+            }
+        }
+        return result;
+    }
+
 }
