@@ -57,7 +57,7 @@ public class 7Jan26 {
     public List<Integer> stableMountains(int[] height, int threshold) {
         List<Integer> result = new ArrayList<>();
         int n = height.length;
-        for (int i = 1; i < n - 1; i++) {
+        for (int i = 1; i < n ; i++) {
             if (height[i-1]>threshold) {
                         result.add(i);
         
@@ -68,6 +68,79 @@ public class 7Jan26 {
     return result;
     }
 
+
+    public String removeOuterParentheses(String s) {
+       int n = s.length();
+       int count = 0;
+
+       List<String> res = new ArrayList<>();
+       
+       for (int i = 0; i < n; i++) {
+           char c = s.charAt(i);
+           if (c == '(') {
+               count++;
+           } else {
+               count--;
+           }
+           if (count == 0) {
+               res.add(s.substring(0, i+1));
+               s=s.substring(i+1);
+               i=-1;
+               n = s.length();
+           }
+       }
+       String finalStr = "";
+       for (int i = 0; i < res.size(); i++) {
+           String str = res.get(i);
+           str = str.substring(1, str.length()-1);
+              finalStr += str;
+       }
+
+       return finalStr;
+
+    }
+
+
+    public String reversePrefix(String word, char ch) {
+        int n = word.length();
+        for (int i = 0; i < n; i++) {
+            if (word.charAt(i) == ch) {
+                String prefix = word.substring(0, i + 1);
+                String suffix = word.substring(i + 1);
+                String reversedPrefix = new StringBuilder(prefix).reverse().toString();
+                return reversedPrefix + suffix;
+            }
+        }
+
+        return word;
+    }
+
+
+        public String truncateSentence(String s, int k) {
+        String words[] = s.split(" ");
+        String result = "";
+        for (int i = 0; i < k; i++) {
+            result += words[i];
+            if (i != k - 1) {
+                result += " ";
+            }
+        }
+        return result;
+    }
+
+    public int minOperations(int[] nums, int k) {
+        int n = nums.length;
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] < k) {
+                count++;
+            }
+        }
+
+        return count;
+
+
+    }
 
 
 }
