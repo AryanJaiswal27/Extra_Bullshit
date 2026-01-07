@@ -450,4 +450,74 @@ class Solution {
         return moves;
     }
 
+    public int balancedStringSplit(String s) {
+        int count = 0;
+        int n = s.length();
+        int balance = 0;
+        for (int i = 0; i < n; i++) {
+            if (s.charAt(i) == 'L') {
+                balance++;
+            } else {
+                balance--;
+            }
+            if (balance == 0) {
+                count++;
+            }
+        }
+        return count;
+
+    }
+
+    class ParkingSystem {
+
+        int type1;
+        int type2;
+        int type3;
+
+        public ParkingSystem(int big, int medium, int small) {
+            type1 = big;
+            type2 = medium;
+            type3 = small;
+        }
+
+        public boolean addCar(int carType) {
+            if (carType == 1) {
+                if (type1 > 0) {
+                    type1--;
+                    return true;
+                } else {
+
+                    return false;
+                }
+            } else if (carType == 2) {
+                if (type2 > 0) {
+                    type2--;
+                    return true;
+                } else {
+
+                    return false;
+                }
+            } else {
+                if (type3 > 0) {
+                    type3--;
+                    return true;
+                } else {
+
+                    return false;
+                }
+            }
+        }
+    }
+
+    public int maxWidthOfVerticalArea(int[][] points) {
+
+        Arrays.sort(points, Comparator.comparingInt(a -> a[0]));
+        int maxWidth = 0;
+        for (int i = 1; i < points.length; i++) {
+            maxWidth = Math.max(maxWidth, points[i][0] - points[i - 1][0]);
+        }
+        return maxWidth;
+
+    }
+
 }
